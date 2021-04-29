@@ -18,15 +18,38 @@ public class PincodeService {
 	{
 		this.pincodeRepository = pincodeRepository;
 	}
-	
-	public List<Pincode> getAll()
-	{
-		return pincodeRepository.findAll();
-	}
 	public Slice<Pincode> getAll(int page, int size)
 	{
 		Pageable pageable = PageRequest.of(page, size);
 		Slice<Pincode> slice = this.pincodeRepository.findAll(pageable);
+		return slice;
+	}
+	public Slice<Pincode> getByDivisionName(String divisionName, int page, int size)
+	{
+		Pageable pageable = PageRequest.of(page, size);
+		Slice<Pincode> slice = this.pincodeRepository.findByDivisionNameIgnoreCase(divisionName, pageable);
+		return slice;
+	}
+	public List<Pincode> getByOfficeName(String officeName)
+	{
+		List<Pincode> pincodes = this.pincodeRepository.findByOfficeNameIgnoreCase(officeName);
+		return pincodes;
+	}
+	public List<Pincode> getByCode(int code)
+	{
+		List<Pincode> pincodes = this.pincodeRepository.findByCode(code);
+		return pincodes;
+	}
+	public Slice<Pincode> getByDistrict(String district, int page, int size)
+	{
+		Pageable pageable = PageRequest.of(page, size);
+		Slice<Pincode> slice = this.pincodeRepository.findByDistrictIgnoreCase(district, pageable);
+		return slice;
+	}
+	public Slice<Pincode> getByState(String state, int page, int size)
+	{
+		Pageable pageable = PageRequest.of(page,  size);
+		Slice<Pincode> slice = this.pincodeRepository.findByStateIgnoreCase(state, pageable);
 		return slice;
 	}
 }
