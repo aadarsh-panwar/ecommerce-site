@@ -35,7 +35,7 @@ public class CustomerService {
 	public Slice<Customer> getByLastName(String lastName, int page, int size)
 	{
 		Pageable pageable = PageRequest.of(page, size);
-		Slice<Customer> slice =customerRepository.findByFirstNameIgnoreCase(lastName, pageable); 
+		Slice<Customer> slice =customerRepository.findByLastNameIgnoreCase(lastName, pageable); 
 		return slice;
 	}
 

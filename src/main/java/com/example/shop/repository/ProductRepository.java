@@ -10,5 +10,5 @@ import com.example.shop.models.Product;
 
 @Repository
 public interface ProductRepository extends MongoRepository<Product, Long>, CustomProductRepository{
-	Page<Product> findByCategoryIgnoreCase(Category category,Pageable pageable);
+	Page<Product> findByCategory(Category category,Pageable pageable);
 }

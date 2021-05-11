@@ -29,7 +29,15 @@ public class ProductService {
 	public Page<Product> getByCategory(String category, int page, int size)
 	{
 		Pageable pageable = PageRequest.of(page, size);
-		Catogory value = Category.valueOf(category);
-		return productRepository.findByCategoryIgnoreCase(category.toUpperCase(),pageable);
+		try
+		{
+		Category value = Category.valueOf(category.toUpperCase());
+		return productRepository.findByCategory(value,pageable);
+		}
+		catch(Exception exception)
+		{
+			return productRepository.findByCategory(null, pageable);
+		}
+		
 	}
 }
