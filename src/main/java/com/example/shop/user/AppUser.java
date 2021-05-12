@@ -18,9 +18,6 @@ public class AppUser implements UserDetails {
 	private AppUserRole appUserRole;
 	private boolean locked = false;
 	private boolean enabled = false;
-	
-	
-	
 
 	public String getId() {
 		return id;
