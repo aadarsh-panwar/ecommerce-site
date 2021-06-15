@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document("buy_order")
 public class BuyOrder {
 	@Id
-	private long id;
+	private String id;
 	@Field("customer_id")
 	private long customerId;
 	@Field("product_id")
@@ -31,10 +31,19 @@ public class BuyOrder {
 	private int pincode;
 	@Field("shipping_address")
 	private String shippingAddress;
-	public long getId() {
+	@Field("payment_status")
+	private PaymentStatus paymentStatus;
+	
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+	public void setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public long getCustomerId() {
@@ -109,9 +118,10 @@ public class BuyOrder {
 		int result = 1;
 		result = prime * result + ((OrderShipDate == null) ? 0 : OrderShipDate.hashCode());
 		result = prime * result + (int) (customerId ^ (customerId >>> 32));
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((orderDate == null) ? 0 : orderDate.hashCode());
 		result = prime * result + ((orderStatus == null) ? 0 : orderStatus.hashCode());
+		result = prime * result + ((paymentStatus == null) ? 0 : paymentStatus.hashCode());
 		result = prime * result + ((paymentType == null) ? 0 : paymentType.hashCode());
 		result = prime * result + pincode;
 		result = prime * result + (int) (productId ^ (productId >>> 32));
@@ -123,14 +133,14 @@ public class BuyOrder {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if(obj == null)
-			return false;
-		if(obj == this)
+		if (this == obj)
 			return true;
+		if (obj == null)
+			return false;
 		if(!(obj instanceof BuyOrder))
 			return false;
-		BuyOrder other = (BuyOrder)obj;
-		return this.id == other.id;
+		BuyOrder other = (BuyOrder) obj;
+		return this.id.equalsIgnoreCase(other.id);
 	}
 	@Override
 	public String toString() {

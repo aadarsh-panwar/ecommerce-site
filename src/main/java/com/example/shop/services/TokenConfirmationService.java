@@ -11,12 +11,10 @@ public class TokenConfirmationService {
 	@Autowired
 	private TokenConfirmationRepository tokenConfirmationRepository;
 	
-	public void saveConfirmationToken(ConfirmationToken token)
-	{
+	public void saveConfirmationToken(ConfirmationToken token) {
 		this.tokenConfirmationRepository.save(token);
 	}
-	public ConfirmationToken getByToken(String token)
-	{
+	public ConfirmationToken getByToken(String token) {
 		return tokenConfirmationRepository.findByToken(token);
 	}
 }

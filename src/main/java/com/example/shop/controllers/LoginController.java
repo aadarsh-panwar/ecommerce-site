@@ -3,6 +3,7 @@ package com.example.shop.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,21 +29,17 @@ public class LoginController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@RequestMapping(value = "customer", method = RequestMethod.POST)
-	public ResponseEntity<?> generateToken(@RequestBody JwtRequest request) throws Exception
-	{
-		System.out.println("request arrived:"+ request);
-		try
-		{
+	public ResponseEntity<?> generateToken(@RequestBody JwtRequest request) throws Exception {
+		System.out.println("request:"+ request);
+		try {
 		UsernamePasswordAuthenticationToken authenticationToken =new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
 		this.authenticationManager.authenticate(authenticationToken);	
 		}
-		catch(UsernameNotFoundException usernameNotFound)
-		{
+		catch(UsernameNotFoundException usernameNotFound) {
 			System.out.println(usernameNotFound.getMessage());
 			throw new Exception("bad credentials");
 		}
-		catch(Exception exception)
-		{
+		catch(BadCredentialsException exception) {
 			System.out.println(exception.getMessage());
 			throw new Exception("bad credentials");
 		}

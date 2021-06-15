@@ -20,8 +20,7 @@ public class EmailService{
 	private JavaMailSender mailSender;
 	@Async
 	public void send(String to, String body) {
-		try
-		{
+		try {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,"utf-8");
 		messageHelper.setText(body, true);
@@ -30,31 +29,26 @@ public class EmailService{
 		messageHelper.setFrom("hello@ecommerce.shop.com");
 		mailSender.send(mimeMessage);
 		}
-		catch(MessagingException exception)
-		{
+		catch(MessagingException exception) {
 			System.out.println("failed to send email:"+ exception.getMessage());
 			throw new IllegalStateException("failed to send email");
 		}
 	}
 	
-	public String getBody(String confirmationLink)
-	{
+	public String getBody(String confirmationLink) {
 		StringBuffer body = new StringBuffer();
-		try
-		{
+		try {
 			File file = new File("confirmation-email.html");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;
-			while((line = reader.readLine())!=null)
-			{
+			while((line = reader.readLine())!=null) {
 				line = line.replace("${token}", confirmationLink);
 				body.append(line);
 			}
 			reader.close();
 			return body.toString();
 		}
-		catch(IOException ioException)
-		{
+		catch(IOException ioException) {
 			System.out.println("failed to read email file:"+ ioException.getMessage());
 		}
 		return null;

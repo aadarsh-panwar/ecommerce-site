@@ -4,18 +4,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.TextScore;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Document("product")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
 	@Id
 	private long id;
+	@TextIndexed(weight = 5)
 	private String title;
 	private String brand;
 	private String manufacturer;
 	private int mrp;
 	private Map<String, Object> attributes = new HashMap<>();
 	private Category category;
+	@Field("seller_id")
+	private long sellerId;
+	@TextScore
+	private Float score;
 	public long getId() {
 		return id;
 	}
@@ -65,6 +76,13 @@ public class Product {
 	}
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+	public long getSellerId() {
+		return sellerId;
+	}
+	public void setSellerId(long sellerId) {
+		this.sellerId = sellerId;
 	}
 	@Override
 	public int hashCode() {

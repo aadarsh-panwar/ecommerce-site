@@ -1,5 +1,7 @@
 package com.example.shop.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -10,10 +12,11 @@ import com.example.shop.models.OrderStatus;
 import com.example.shop.models.PaymentType;
 
 @Repository
-public interface BuyOrderRepository extends MongoRepository<BuyOrder, Long>{
+public interface BuyOrderRepository extends MongoRepository<BuyOrder, String>{
 	Page<BuyOrder> findByCustomerId(long customerId, Pageable pageable);
 	Page<BuyOrder> findByProductId(long productId, Pageable pageable);
 	Page<BuyOrder> findBySellerId(long sellerId, Pageable pageable);
+	List<BuyOrder> findBySellerId(long sellerId);
 	Page<BuyOrder> findByPaymentType(PaymentType paymentType, Pageable pageable);
 	Page<BuyOrder> findByOrderStatus(OrderStatus orderStatus, Pageable pageable);
 	Page<BuyOrder> findByShippingCityIgnoreCase(String city, Pageable pageable);

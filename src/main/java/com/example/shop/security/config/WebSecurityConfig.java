@@ -35,8 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 
 	@Bean
-	public DaoAuthenticationProvider daoAuthenticationProvider()
-	{
+	public DaoAuthenticationProvider daoAuthenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setPasswordEncoder(passwordEncoder.getPasswordEncoder());
 		provider.setUserDetailsService(appUserService);
@@ -46,9 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http  
 			.csrf().disable()
-			.cors().disable()
+			.cors().and()   //.disable()
 			.authorizeRequests()
 			.antMatchers("/register/**", "/login/**")
+			//.antMatchers("/**")
 			.permitAll()
 			.anyRequest()
 			.authenticated().and()
@@ -60,8 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception
-	{
+	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
  

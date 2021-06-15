@@ -21,51 +21,44 @@ public class PincodeController {
 	private PincodeService pincodeService;
 	
 	@Autowired 
-	public PincodeController(PincodeService pincodeService)
-	{
+	public PincodeController(PincodeService pincodeService) {
 		this.pincodeService = pincodeService;
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public Slice<Pincode> getAll(@RequestParam(defaultValue = "0")int page, 
-								@RequestParam(defaultValue = "20")int size)	
-	{
+								@RequestParam(defaultValue = "20")int size)	{
 		return pincodeService.getAll(page, size);
 	}
 	
 	@RequestMapping(value = "/division-name/{divisionName}", method = RequestMethod.GET)
 	public Slice<Pincode> getByDivisionName(@PathVariable("divisionName")String divisionName,
 											@RequestParam(defaultValue = "0")int page,
-											@RequestParam(defaultValue = "20")int size)
-	{
+											@RequestParam(defaultValue = "20")int size) {
 		return pincodeService.getByDivisionName(divisionName, page, size);
 	}
 	
 	@RequestMapping(value = "/office-name/{officeName}", method = RequestMethod.GET)
-	public List<Pincode> getByOfficeName(@PathVariable("officeName")String officeName)
-	{
+	public List<Pincode> getByOfficeName(@PathVariable("officeName")String officeName) {
 		return pincodeService.getByOfficeName(officeName);
 	}
 	
 	@RequestMapping(value = "/code/{code}", method = RequestMethod.GET)
-	public List<Pincode> getByCode(@PathVariable("code")int code)
-	{
+	public List<Pincode> getByCode(@PathVariable("code")int code) {
 		return pincodeService.getByCode(code);
 	}
 	
 	@RequestMapping(value = "/district/{district}", method = RequestMethod.GET)
 	public Slice<Pincode> getByDistrict(@PathVariable("district")String district,
 										@RequestParam(defaultValue = "0")int page, 
-										@RequestParam(defaultValue = "20")int size)
-	{
+										@RequestParam(defaultValue = "20")int size) {
 		return pincodeService.getByDistrict(district, page, size);
 	}
 	
 	@RequestMapping(value = "/state/{state}", method = RequestMethod.GET)
 	public Slice<Pincode> getByState(@PathVariable("state")String state,
 									 @RequestParam(defaultValue ="0")int page, 
-									 @RequestParam(defaultValue = "20")int size)	
-	{
+									 @RequestParam(defaultValue = "20")int size) {
 		return pincodeService.getByState(state, page, size);
 	}
 }

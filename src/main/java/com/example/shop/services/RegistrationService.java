@@ -23,8 +23,8 @@ public class RegistrationService {
 	@Autowired
 	private AppUserRepository appUserRepository;
 	
-	public String register(RegistrationRequest request) throws IllegalStateException
-	{
+	public String register(RegistrationRequest request) throws IllegalStateException {
+		System.out.println("request:"+ request);
 		String username = request.getUsername();
 		boolean result= emailValidator.test(username);
 		AppUser appUser = new AppUser();
@@ -35,27 +35,22 @@ public class RegistrationService {
 		return appUserService.signUpUser(appUser);
 		
 	}
-	public String confirm(String token)
-	{
+	public String confirm(String token) {
 		ConfirmationToken confirmationToken = tokenConfirmationService.getByToken(token);
-		if(confirmationToken == null)
-		{
+		if(confirmationToken == null) {
 			throw new IllegalStateException("invalid token");
 		}
 		String appUserId= confirmationToken.getAppUser();
 		Optional<AppUser> appUserWrapper = appUserRepository.findById(appUserId);
-		if(appUserWrapper.isEmpty())
-		{
+		if(appUserWrapper.isEmpty()) {
 			throw new IllegalStateException("user does not exists");
 		}
 		AppUser appUser = appUserWrapper.get();
-		if(confirmationToken.getConfirmationTime() != null)
-		{
+		if(confirmationToken.getConfirmationTime() != null) {
 			throw new IllegalStateException("email already confirmed");
 		}
 		LocalDateTime expirationTime= confirmationToken.getExpirationTime();
-		if(expirationTime.isBefore(LocalDateTime.now()))
-		{
+		if(expirationTime.isBefore(LocalDateTime.now())) {
 			throw new IllegalStateException("token expired");
 		}
 		confirmationToken.setConfirmationTime(LocalDateTime.now());

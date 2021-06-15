@@ -14,40 +14,33 @@ public class PincodeService {
 	private PincodeRepository pincodeRepository;
 	
 	@Autowired
-	public PincodeService(PincodeRepository pincodeRepository)
-	{
+	public PincodeService(PincodeRepository pincodeRepository) {
 		this.pincodeRepository = pincodeRepository;
 	}
-	public Slice<Pincode> getAll(int page, int size)
-	{
+	public Slice<Pincode> getAll(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		Slice<Pincode> slice = this.pincodeRepository.findAll(pageable);
 		return slice;
 	}
-	public Slice<Pincode> getByDivisionName(String divisionName, int page, int size)
-	{
+	public Slice<Pincode> getByDivisionName(String divisionName, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		Slice<Pincode> slice = this.pincodeRepository.findByDivisionNameIgnoreCase(divisionName, pageable);
 		return slice;
 	}
-	public List<Pincode> getByOfficeName(String officeName)
-	{
+	public List<Pincode> getByOfficeName(String officeName) {
 		List<Pincode> pincodes = this.pincodeRepository.findByOfficeNameIgnoreCase(officeName);
 		return pincodes;
 	}
-	public List<Pincode> getByCode(int code)
-	{
+	public List<Pincode> getByCode(int code) {
 		List<Pincode> pincodes = this.pincodeRepository.findByCode(code);
 		return pincodes;
 	}
-	public Slice<Pincode> getByDistrict(String district, int page, int size)
-	{
+	public Slice<Pincode> getByDistrict(String district, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		Slice<Pincode> slice = this.pincodeRepository.findByDistrictIgnoreCase(district, pageable);
 		return slice;
 	}
-	public Slice<Pincode> getByState(String state, int page, int size)
-	{
+	public Slice<Pincode> getByState(String state, int page, int size) {
 		Pageable pageable = PageRequest.of(page,  size);
 		Slice<Pincode> slice = this.pincodeRepository.findByStateIgnoreCase(state, pageable);
 		return slice;

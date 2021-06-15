@@ -18,8 +18,7 @@ public class EmailValidater implements Predicate<String>{
 		 
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(username);
-		if(!matcher.matches())
-		{
+		if(!matcher.matches()) {
 			throw new IllegalStateException("invalid email format");
 		}
 		return true;

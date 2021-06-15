@@ -16,35 +16,28 @@ public class CityService {
 	private CityRepository cityRepository;
 	
 	@Autowired
-	public CityService(CityRepository cityRepository)
-	{
+	public CityService(CityRepository cityRepository) {
 		this.cityRepository = cityRepository;
 	}
 	
-	public Slice<City> getAll(int page, int size)
-	{
+	public Slice<City> getAll(int page, int size) {
 		Pageable pageable = PageRequest.of(page,  size);
 		Slice<City> slice = cityRepository.findAll(pageable);
 		return slice;
 	}
-	public City getByName(String name)
-	{
+	public City getByName(String name) {
 		return cityRepository.findByNameIgnoreCase(name);
 	}
-	public List<City> getByState(String state)
-	{
+	public List<City> getByState(String state) {
 		return cityRepository.findByStateIgnoreCase(state);
 	}
-	public boolean existsByName(String name)
-	{
+	public boolean existsByName(String name) {
 		return cityRepository.existsByNameIgnoreCase(name);
 	}
-	public boolean existsByState(String state)
-	{
+	public boolean existsByState(String state) {
 		return cityRepository.existsByStateIgnoreCase(state);
 	}
-	public boolean existsByNameAndState(String name, String state)
-	{
+	public boolean existsByNameAndState(String name, String state) {
 		return cityRepository.existsByNameIgnoreCaseAndStateIgnoreCase(name, state);
 	}
 }
